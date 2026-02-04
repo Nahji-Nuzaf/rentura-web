@@ -29,22 +29,6 @@ export const onRequestPost = async (context: any) => {
             .filter(Boolean)
             .join("\n");
 
-        // const resp = await fetch(
-        //     "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey,
-        //     {
-        //         method: "POST",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify({
-        //             contents: [
-        //                 {
-        //                     role: "user",
-        //                     parts: [{ text: prompt }],
-        //                 },
-        //             ],
-        //         }),
-        //     }
-        // );
-
         const resp = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
             {
@@ -54,12 +38,28 @@ export const onRequestPost = async (context: any) => {
                     contents: [
                         {
                             role: "user",
-                            parts: [{ text: userMessage }],
+                            parts: [{ text: prompt }],
                         },
                     ],
                 }),
             }
         );
+
+        // const resp = await fetch(
+        //     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        //     {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify({
+        //             contents: [
+        //                 {
+        //                     role: "user",
+        //                     parts: [{ text: userMessage }],
+        //                 },
+        //             ],
+        //         }),
+        //     }
+        // );
 
         const data: any = await resp.json();
 
