@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rentura - The Future of Renting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="/resources/rentura-logo-bgremove.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-page: #F9FBFF;
+        --bg-card: #FFFFFF;
+        --bg-card-elevated: #FFFFFF;
+        --border-base: #E6ECF5;
+        --text-primary: #0B1B33;
+        --text-secondary: #5F6F8A;
+        --text-muted: #8A97AD;
+        --btn-primary: #2F8FFF;
+        --btn-hover: #1E7BEA;
+        --accent-blue: #4DA3FF;
+      }
+      .dark {
+        --bg-page: #050B17;
+        --bg-card: #0B1B33;
+        --bg-card-elevated: #102447;
+        --border-base: #1E335C;
+        --text-primary: #E6ECF5;
+        --text-secondary: #A8B3CF;
+        --text-muted: #7E8BAA;
+        --btn-primary: #2F8FFF;
+        --btn-hover: #4DA3FF;
+      }
+      
+      /* Custom scrollbar for better aesthetics */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-page);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--text-muted);
+        border-radius: 4px;
+        opacity: 0.5;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              page: 'var(--bg-page)',
+              card: 'var(--bg-card)',
+              'card-elevated': 'var(--bg-card-elevated)',
+              'border-base': 'var(--border-base)',
+              primary: 'var(--text-primary)',
+              secondary: 'var(--text-secondary)',
+              muted: 'var(--text-muted)',
+              'btn-primary': 'var(--btn-primary)',
+              'btn-hover': 'var(--btn-hover)',
+              'accent-blue': 'var(--accent-blue)',
+            },
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
+            backgroundImage: {
+              'hero-pattern': "radial-gradient(circle at 50% 50%, rgba(47, 143, 255, 0.1) 0%, rgba(5, 11, 23, 0) 50%)",
+              'hero-pattern-light': "radial-gradient(circle at 50% 50%, rgba(47, 143, 255, 0.05) 0%, rgba(249, 251, 255, 0) 50%)",
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.31.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-page text-primary antialiased transition-colors duration-300 overflow-x-hidden">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
