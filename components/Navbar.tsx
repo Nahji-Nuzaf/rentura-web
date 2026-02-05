@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Home, Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../hooks/useTheme';
+import logo from "../src/rentura-logo-bgremove.png";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,7 +49,7 @@ const Navbar: React.FC = () => {
             {/* <div className="w-10 h-10 bg-btn-primary rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
               <Home className="text-white w-6 h-6" />
             </div> */}
-            <img src="src/rentura-logo-bgremove.png" alt="Rentura Logo" className="w-10 h-10 transform group-hover:rotate-12 transition-transform duration-300" />
+            <img src={logo} alt="Rentura Logo" className="w-10 h-10 transform group-hover:rotate-12 transition-transform duration-300" />
             <span className="text-2xl font-bold text-primary tracking-tight ">
               RENTURA
             </span>
