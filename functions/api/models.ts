@@ -20,7 +20,7 @@ export const onRequestGet = async (context: any) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err: any) {
-    return new Response(JSON.stringify({ error: err?.message ?? "Server error" }), {
+    return new Response(JSON.stringify({ error: err?.message ?? "Serverrrrr error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
