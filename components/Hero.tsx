@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
               type="submit"
               className="px-8 py-4 bg-btn-primary hover:bg-btn-hover text-white font-bold rounded-xl transition-all shadow-lg shadow-btn-primary/20 flex items-center justify-center gap-2 group whitespace-nowrap"
             >
-              {submitted ? (
+              {/* {submitted ? (
                 <>
                   <CheckCircle2 className="w-5 h-5" /> Joined!
                 </>
@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
                 <>
                   Join Waitlist <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </>
-              )}
+              )} */}
             </button>
           </form>
           <p className="mt-4 text-sm text-muted">Launching soon. Early users get priority access.</p>
