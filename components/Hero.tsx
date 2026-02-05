@@ -64,6 +64,7 @@ const Hero: React.FC = () => {
               type="submit"
               className="px-8 py-4 bg-btn-primary hover:bg-btn-hover text-white font-bold rounded-xl transition-all shadow-lg shadow-btn-primary/20 flex items-center justify-center gap-2 group whitespace-nowrap"
             >
+              Join Waitlist <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               {/* {submitted ? (
                 <>
                   <CheckCircle2 className="w-5 h-5" /> Joined!
