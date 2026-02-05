@@ -141,7 +141,7 @@ const RENTURA_KEYWORDS = [
 ];
 
 const OFF_TOPIC_REPLY =
-    "I can only help with Rentura-related questions. Please ask about Rentura features, pricing, or how to use the platform. If you need support, contact support@rentura.com.";
+    "I can assist with Rentura related questions only. For support, please contact rentura@gmail.com";
 
 export const onRequestPost = async (context: any) => {
     try {
