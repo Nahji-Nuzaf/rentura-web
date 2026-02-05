@@ -125,12 +125,23 @@ ${userMessage}
 
         const data: any = await resp.json();
 
+        // if (!resp.ok) {
+        //     return new Response(JSON.stringify({ error: data?.error || data }), {
+        //         status: 500,
+        //         headers: { "Content-Type": "application/json" },
+        //     });
+        // }
         if (!resp.ok) {
-            return new Response(JSON.stringify({ error: data?.error || data }), {
-                status: 500,
+            const errorMessage =
+                data?.error?.message ||
+                (typeof data === "string" ? data : JSON.stringify(data));
+
+            return new Response(JSON.stringify({ error: errorMessage }), {
+                status: resp.status,
                 headers: { "Content-Type": "application/json" },
             });
         }
+
 
         const reply =
             data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
