@@ -1,6 +1,5 @@
 // functions/api/chat.ts
 
-// ✅ Rentura-only knowledge base (edit/extend this any time)
 const RENTURA_KB = `
 Rentura is a modern property management platform.
 
@@ -22,20 +21,9 @@ Support:
 - support@rentura.com
 `;
 
-// ✅ Strict “only Rentura” policy (enforced on the server)
-const SYSTEM_POLICY = `
-You are Rentura AI, the official support assistant for the Rentura website.
+const OFF_TOPIC_REPLY =
+    "I can only help with Rentura-related questions. Please ask about Rentura features, pricing, or how to use the platform. If you need support, contact support@rentura.com.";
 
-Hard rules you MUST follow:
-- Only answer questions directly about Rentura (features, pricing, usage, troubleshooting, product info).
-- Use ONLY the knowledge in RENTURA_KB below. Do NOT use outside knowledge.
-- If the user asks anything unrelated to Rentura, reply EXACTLY with:
-  "I can only help with Rentura-related questions. Please ask about Rentura features, pricing, or how to use the platform. If you need support, contact support@rentura.com."
-- If the user asks something Rentura-related but it is not covered in RENTURA_KB, say you don’t know and direct them to support@rentura.com.
-- Keep answers concise, helpful, and friendly.
-`;
-
-// ✅ Simple keyword gate to block off-topic queries BEFORE calling Gemini (saves cost)
 const RENTURA_KEYWORDS = [
     "rentura",
     "tenant",
@@ -57,11 +45,7 @@ const RENTURA_KEYWORDS = [
     "fraud",
     "roommate",
     "credit",
-    "service-providers",
 ];
-
-const OFF_TOPIC_REPLY =
-    "I can assist with Rentura related questions only. For support, please contact rentura@gmail.com";
 
 export const onRequestPost = async (context: any) => {
     try {
@@ -74,7 +58,7 @@ export const onRequestPost = async (context: any) => {
             });
         }
 
-        // 🔒 Block off-topic messages early
+        // Block off-topic early (saves cost)
         const lower = userMessage.toLowerCase();
         const isRenturaRelated = RENTURA_KEYWORDS.some((k) => lower.includes(k));
         if (!isRenturaRelated) {
@@ -83,77 +67,57 @@ export const onRequestPost = async (context: any) => {
             });
         }
 
-        const apiKey = context.env.GEMINI_API_KEY;
+        const apiKey = context.env.OPENAI_API_KEY;
         if (!apiKey) {
-            return new Response(JSON.stringify({ error: "GEMINI_API_KEY is not set" }), {
+            return new Response(JSON.stringify({ error: "OPENAI_API_KEY is not set" }), {
                 status: 500,
                 headers: { "Content-Type": "application/json" },
             });
         }
 
-        // ✅ Strongly-scoped prompt: policy + KB + user question
-        const prompt = `
-${SYSTEM_POLICY}
+        const system = [
+            "You are Rentura AI, the official support assistant for the Rentura website.",
+            "Rules:",
+            "- Only answer questions directly about Rentura (features, pricing, usage, troubleshooting, product info).",
+            "- Use ONLY the knowledge in RENTURA_KB. Do NOT use outside knowledge.",
+            `- If the question is unrelated to Rentura, reply EXACTLY with: "${OFF_TOPIC_REPLY}"`,
+            "- If the question is Rentura-related but not covered in RENTURA_KB, say you don’t know and direct to support@rentura.com.",
+            "- Keep answers concise, helpful, and friendly.",
+            "",
+            "RENTURA_KB:",
+            RENTURA_KB,
+        ].join("\n");
 
-RENTURA_KB:
-${RENTURA_KB}
-
-USER QUESTION:
-${userMessage}
-`;
-
-        const resp = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [{ text: prompt }],
-                        },
-                    ],
-                    // Optional: keep responses more deterministic
-                    generationConfig: {
-                        temperature: 0.3,
-                        topP: 0.9,
-                    },
-                }),
-            }
-        );
+        const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                temperature: 0.3,
+                messages: [
+                    { role: "system", content: system },
+                    { role: "user", content: userMessage },
+                ],
+            }),
+        });
 
         const data: any = await resp.json();
 
         if (!resp.ok) {
             const errorMessage =
-                data?.error?.message ||
-                (typeof data === "string" ? data : JSON.stringify(data));
-
+                data?.error?.message || (typeof data === "string" ? data : JSON.stringify(data));
             return new Response(JSON.stringify({ error: errorMessage }), {
                 status: resp.status,
                 headers: { "Content-Type": "application/json" },
             });
         }
 
-
         const reply =
-            data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+            data?.choices?.[0]?.message?.content?.trim() ||
             "Sorry, I couldn’t generate a reply.";
-
-        // Final safety net: if the model still answers off-topic, override it
-        const replyLower = reply.toLowerCase();
-        const looksOffTopic =
-            replyLower.includes("as an ai") ||
-            replyLower.includes("i can help with many") ||
-            replyLower.includes("general") ||
-            replyLower.includes("unrelated");
-
-        if (looksOffTopic) {
-            return new Response(JSON.stringify({ reply: OFF_TOPIC_REPLY }), {
-                headers: { "Content-Type": "application/json" },
-            });
-        }
 
         return new Response(JSON.stringify({ reply }), {
             headers: { "Content-Type": "application/json" },
