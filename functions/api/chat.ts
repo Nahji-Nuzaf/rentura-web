@@ -163,6 +163,7 @@ function isRenturaRelated(query: string): boolean {
         "screening",
         "report",
         "occupancy",
+        "greeting",
     ];
     return renturaSignals.some((k) => query.includes(k));
 }
