@@ -80,6 +80,16 @@ const FAQS: FAQ[] = [
         answer:
             "You can reach Rentura support at support@rentura.com. If you tell me what you’re trying to do, I can guide you through the relevant feature too.",
     },
+    {
+        id: "lease",
+        keywords: ["lease", "lease agreement", "contract", "tenancy agreement"],
+        answer: "Rentura keeps lease information connected to tenants and conversations so it’s easy to reference when managing rent and maintenance."
+    },
+    {
+        id: "Hi",
+        keywords: ["Hi", "Hello", "Hey"],
+        answer: "Hello! I'm Rentura's AI assistant. How can I help you today?"
+    },
 ];
 
 // ---------- Matching helpers ----------
@@ -136,6 +146,7 @@ function isRenturaRelated(query: string): boolean {
         "screening",
         "report",
         "occupancy",
+        "Hi",
     ];
     return renturaSignals.some((k) => query.includes(k));
 }
