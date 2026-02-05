@@ -169,8 +169,8 @@ const AiChatbot: React.FC = () => {
                                 >
                                     <div
                                         className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user"
-                                                ? "bg-secondary text-white"
-                                                : "bg-btn-primary/20 text-btn-primary"
+                                            ? "bg-secondary text-white"
+                                            : "bg-btn-primary/20 text-btn-primary"
                                             }`}
                                     >
                                         {msg.role === "user" ? (
@@ -182,8 +182,8 @@ const AiChatbot: React.FC = () => {
 
                                     <div
                                         className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${msg.role === "user"
-                                                ? "bg-btn-primary text-white rounded-tr-sm"
-                                                : "bg-page text-primary border border-border-base rounded-tl-sm"
+                                            ? "bg-btn-primary text-white rounded-tr-sm"
+                                            : "bg-page text-primary border border-border-base rounded-tl-sm"
                                             }`}
                                     >
                                         {msg.text}

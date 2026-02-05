@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
               {/* <div className="w-8 h-8 bg-btn-primary rounded-lg flex items-center justify-center">
                 <Home className="text-white w-5 h-5" />
               </div> */}
-              {/* <img src={logo} alt="Rentura Logo" className="w-9 h-9 transform group-hover:rotate-12 transition-transform duration-300" /> */}
+              <img src={logo} alt="Rentura Logo" className="w-9 h-9 transform group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-xl font-bold text-primary tracking-tight">RENTURA</span>
             </div>
             <p className="text-secondary leading-relaxed mb-6">
