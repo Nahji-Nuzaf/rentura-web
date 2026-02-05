@@ -143,7 +143,7 @@ const Waitlist: React.FC = () => {
                             className="relative w-full max-w-xl lg:-my-12"
                         >
                             {/* Pill Badge */}
-                            <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 bg-card text-primary px-8 py-3 rounded-full font-bold text-sm md:text-base uppercase tracking-widest shadow-[0_0_25px_rgba(0,0,0,0.1)] border border-border-base">
+                            <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 bg-card text-primary px-8 py-3 rounded-full font-bold text-xs md:text-base uppercase tracking-widest shadow-[0_0_25px_rgba(0,0,0,0.1)] border border-border-base">
                                 Early Access
                             </div>
 
