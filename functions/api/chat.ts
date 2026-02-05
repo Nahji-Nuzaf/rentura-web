@@ -57,6 +57,7 @@ const RENTURA_KEYWORDS = [
     "fraud",
     "roommate",
     "credit",
+    "service-providers",
 ];
 
 const OFF_TOPIC_REPLY =
