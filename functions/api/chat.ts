@@ -8,7 +8,7 @@ type FAQ = {
 };
 
 const OFF_TOPIC_REPLY =
-    "I can only help with Rentura-related questions (features, pricing, onboarding, tenant/landlord workflows, payments, maintenance, reports). If you need support, contact support@rentura.com.";
+    "I can help only with Rentura features and pricing. For other questions, contact support@rentura.com";
 
 const UNKNOWN_RENTURA_REPLY =
     "I’m not 100% sure about that yet. I can help with Rentura features, pricing, onboarding, tenants/landlords, payments, maintenance, and reports. For anything else, contact support@rentura.com.";
@@ -90,6 +90,23 @@ const FAQS: FAQ[] = [
         keywords: ["Hi", "Hello", "Hey"],
         answer: "Hello! I'm Rentura's AI assistant. How can I help you today?"
     },
+    {
+        id: "greeting",
+        keywords: [
+            "hi",
+            "hello",
+            "hey",
+            "hey there",
+            "hii",
+            "hola",
+            "good morning",
+            "good afternoon",
+            "good evening"
+        ],
+        answer:
+            "Hi! 👋 I can help you learn about Rentura — features, pricing, onboarding, and more. What would you like to know?",
+    },
+
 ];
 
 // ---------- Matching helpers ----------
@@ -146,7 +163,6 @@ function isRenturaRelated(query: string): boolean {
         "screening",
         "report",
         "occupancy",
-        "Hi",
     ];
     return renturaSignals.some((k) => query.includes(k));
 }
