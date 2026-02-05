@@ -125,12 +125,6 @@ ${userMessage}
 
         const data: any = await resp.json();
 
-        // if (!resp.ok) {
-        //     return new Response(JSON.stringify({ error: data?.error || data }), {
-        //         status: 500,
-        //         headers: { "Content-Type": "application/json" },
-        //     });
-        // }
         if (!resp.ok) {
             const errorMessage =
                 data?.error?.message ||
