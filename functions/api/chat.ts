@@ -8,15 +8,33 @@ type FAQ = {
 };
 
 const OFF_TOPIC_REPLY =
-    "I can help only with Rentura features and pricing. For other questions, contact support@rentura.com";
+    "I can only help with Rentura-related questions. For support, contact support@rentura.com.";
 
 const UNKNOWN_RENTURA_REPLY =
     "I’m not 100% sure about that yet. I can help with Rentura features, pricing, onboarding, tenants/landlords, payments, maintenance, and reports. For anything else, contact support@rentura.com.";
 
 const FAQS: FAQ[] = [
+    // ✅ Greetings (keep only ONE greeting FAQ)
+    {
+        id: "greeting",
+        keywords: [
+            "hi",
+            "hello",
+            "hey",
+            "hey there",
+            "hii",
+            "hola",
+            "good morning",
+            "good afternoon",
+            "good evening",
+        ],
+        answer:
+            "Hi! 👋 I can help you learn about Rentura — features, pricing, onboarding, and more. What would you like to know?",
+    },
+
     {
         id: "what-is-rentura",
-        keywords: ["what is rentura", "rentura", "about rentura", "platform", "what do you do"],
+        keywords: ["what is rentura", "about rentura", "rentura platform", "what do you do"],
         answer:
             "Rentura is a modern property management platform that helps landlords and property managers track rent, manage maintenance, message tenants, and automate reporting—all from one dashboard.",
     },
@@ -83,30 +101,9 @@ const FAQS: FAQ[] = [
     {
         id: "lease",
         keywords: ["lease", "lease agreement", "contract", "tenancy agreement"],
-        answer: "Rentura keeps lease information connected to tenants and conversations so it’s easy to reference when managing rent and maintenance."
-    },
-    {
-        id: "Hi",
-        keywords: ["Hi", "Hello", "Hey"],
-        answer: "Hello! I'm Rentura's AI assistant. How can I help you today?"
-    },
-    {
-        id: "greeting",
-        keywords: [
-            "hi",
-            "hello",
-            "hey",
-            "hey there",
-            "hii",
-            "hola",
-            "good morning",
-            "good afternoon",
-            "good evening"
-        ],
         answer:
-            "Hi! 👋 I can help you learn about Rentura — features, pricing, onboarding, and more. What would you like to know?",
+            "Rentura keeps lease information connected to tenants and conversations so it’s easy to reference when managing rent and maintenance.",
     },
-
 ];
 
 // ---------- Matching helpers ----------
@@ -119,24 +116,17 @@ function normalize(text: string): string {
 }
 
 function scoreFAQ(query: string, faq: FAQ): number {
-    // Higher score = better match
-    // Strategy:
-    // - exact phrase match (keyword as substring) gets higher points
-    // - individual word matches get smaller points
     let score = 0;
 
     for (const kw of faq.keywords) {
         const nkw = normalize(kw);
-
         if (!nkw) continue;
 
         if (query.includes(nkw)) {
-            // phrase match
             score += 8;
             continue;
         }
 
-        // word-level match
         const parts = nkw.split(" ");
         for (const p of parts) {
             if (p.length < 3) continue;
@@ -147,8 +137,24 @@ function scoreFAQ(query: string, faq: FAQ): number {
     return score;
 }
 
+// ✅ Treat greetings as allowed even if not “Rentura-related”
+function isGreeting(query: string): boolean {
+    const greetings = [
+        "hi",
+        "hello",
+        "hey",
+        "hey there",
+        "hii",
+        "hola",
+        "good morning",
+        "good afternoon",
+        "good evening",
+    ];
+    return greetings.some((g) => query === g || query.startsWith(g + " "));
+}
+
 function isRenturaRelated(query: string): boolean {
-    // quick gate so pasta questions don’t even try matching
+    // quick gate so totally unrelated questions don’t even try matching
     const renturaSignals = [
         "rentura",
         "tenant",
@@ -163,7 +169,7 @@ function isRenturaRelated(query: string): boolean {
         "screening",
         "report",
         "occupancy",
-        "greeting",
+        // Add more if needed: "onboarding", "vendor", "repairs", etc.
     ];
     return renturaSignals.some((k) => query.includes(k));
 }
@@ -177,6 +183,15 @@ export const onRequestPost = async (context: any) => {
 
         if (!message) {
             return new Response(JSON.stringify({ reply: UNKNOWN_RENTURA_REPLY }), {
+                headers: { "Content-Type": "application/json" },
+            });
+        }
+
+        // ✅ Let greetings through (and answer via greeting FAQ)
+        // This avoids replying with OFF_TOPIC for “Hi”.
+        if (isGreeting(message)) {
+            const greetingFAQ = FAQS.find((f) => f.id === "greeting");
+            return new Response(JSON.stringify({ reply: greetingFAQ?.answer ?? "Hi! 👋" }), {
                 headers: { "Content-Type": "application/json" },
             });
         }
@@ -195,8 +210,7 @@ export const onRequestPost = async (context: any) => {
             if (!best || s > best.score) best = { faq, score: s };
         }
 
-        // Threshold: adjust if needed
-        // If score too low, we consider it unknown
+        // If score too low, unknown
         if (!best || best.score < 4) {
             return new Response(JSON.stringify({ reply: UNKNOWN_RENTURA_REPLY }), {
                 headers: { "Content-Type": "application/json" },
