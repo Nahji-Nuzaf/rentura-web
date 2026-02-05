@@ -12,14 +12,14 @@ const Footer: React.FC = () => {
               {/* <div className="w-8 h-8 bg-btn-primary rounded-lg flex items-center justify-center">
                 <Home className="text-white w-5 h-5" />
               </div> */}
-              <img src="/rentura-logo-bgremove.png" alt="Rentura Logo" className="w-9 h-9 transform group-hover:rotate-12 transition-transform duration-300" />
+              <img src="src/rentura-logo-bgremove.png" alt="Rentura Logo" className="w-9 h-9 transform group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-xl font-bold text-primary tracking-tight">Rentura</span>
             </div>
             <p className="text-secondary leading-relaxed mb-6">
               The all-in-one platform revolutionizing how the world rents, manages, and maintains properties.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-page flex items-center justify-center text-muted hover:bg-btn-primary hover:text-white transition-colors">
+              <a href="https://x.com/RHomes89613" target="_blank" className="w-10 h-10 rounded-full bg-page flex items-center justify-center text-muted hover:bg-btn-primary hover:text-white transition-colors">
                 <Twitter size={18} />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-page flex items-center justify-center text-muted hover:bg-btn-primary hover:text-white transition-colors">
