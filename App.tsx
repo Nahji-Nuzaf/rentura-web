@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
@@ -15,7 +15,17 @@ import Waitlist from './components/Waitlist';
 import Footer from './components/Footer';
 import AiChatbot from './components/AiChatbot';
 
+
 const App: React.FC = () => {
+
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag('event', 'page_view', {
+        page_path: window.location.pathname,
+      });
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-page text-primary selection:bg-btn-primary selection:text-white transition-colors duration-300">
       <Navbar />
