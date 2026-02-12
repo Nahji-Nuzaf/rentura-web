@@ -210,7 +210,7 @@ const Waitlist: React.FC = () => {
                                                         <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
                                                     ) : (
                                                         <>
-                                                            Join Waitlist <ArrowRight size={24} />
+                                                            Get Priority Access <ArrowRight size={24} />
                                                         </>
                                                     )}
                                                 </button>

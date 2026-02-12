@@ -43,7 +43,9 @@ const Hero: React.FC = () => {
 
           <h1 className="text-4xl lg:text-6xl font-extrabold text-primary leading-tight mb-6">
             {/* Unlock Peace of Mind: The <span className="text-transparent bg-clip-text bg-gradient-to-r from-btn-primary to-accent-blue">All-in-One</span> Rental Ecosystem. */}
-            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-btn-primary to-accent-blue">All-in-One</span> Rental Platform for Modern Properties.
+            {/* The <span className="text-transparent bg-clip-text bg-gradient-to-r from-btn-primary to-accent-blue">All-in-One</span> Rental Platform for Modern Properties. */}
+            {/* Automate Rent. Manage Tenants. Grow Your Properties. */}
+            Automated <span className="text-transparent bg-clip-text bg-gradient-to-r from-btn-primary to-accent-blue">Rental Management Software</span> to Simplify Rent, Tenants & Properties
           </h1>
 
           <p className="text-lg text-secondary mb-8 max-w-lg leading-relaxed">
@@ -64,7 +66,7 @@ const Hero: React.FC = () => {
               type="submit"
               className="px-8 py-4 bg-btn-primary hover:bg-btn-hover text-white font-bold rounded-xl transition-all shadow-lg shadow-btn-primary/20 flex items-center justify-center gap-2 group whitespace-nowrap"
             >
-              Join Waitlist <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Reserve Your Spot <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               {/* {submitted ? (
                 <>
                   <CheckCircle2 className="w-5 h-5" /> Joined!
