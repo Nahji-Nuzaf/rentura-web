@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
             Early Access Open
           </div>
 
-          <h1 className="text-4xl lg:text-6xl font-extrabold text-primary leading-tight mb-6">
+          <h1 className="text-4xl lg:text-5xl font-extrabold text-primary leading-tight mb-6">
             {/* Unlock Peace of Mind: The <span className="text-transparent bg-clip-text bg-gradient-to-r from-btn-primary to-accent-blue">All-in-One</span> Rental Ecosystem. */}
             {/* The <span className="text-transparent bg-clip-text bg-gradient-to-r from-btn-primary to-accent-blue">All-in-One</span> Rental Platform for Modern Properties. */}
             {/* Automate Rent. Manage Tenants. Grow Your Properties. */}
